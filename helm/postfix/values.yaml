@@ -41,6 +41,8 @@ image:
 service:
   type: ClusterIP
   port: 25
+  # externalTrafficPolicy: local
+  # loadBalancerIP:
 
 # SMTP server details
 # Used by postfix to connect to SMTP server
