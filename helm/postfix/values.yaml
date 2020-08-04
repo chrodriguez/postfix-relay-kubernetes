@@ -33,8 +33,8 @@ serviceAccount:
 
 # Docker image
 image:
-  repository: eldada-docker-examples.bintray.io/postfix-relay
-  tag: 0.3
+  repository: chrodriguez/postfix
+  tag: latest
   pullPolicy: IfNotPresent
 
 # Expose pods with service on port 25
