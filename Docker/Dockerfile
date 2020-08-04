@@ -1,18 +1,16 @@
-FROM alpine:3.10
+FROM alpine:3.12
 
-MAINTAINER Eldad Assis <eldad.assis@gmail.com>
+RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash && \
+    apk add --no-cache --upgrade musl musl-utils && \
+    (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
 
-# Install postfix and supervisor
-RUN apk add --no-cache \
-        postfix \
-        rsyslog \
-        supervisor && \
-        /usr/bin/newaliases
+EXPOSE 25 587
 
-# Copy files into container
-COPY . /
+VOLUME [ "/var/spool/postfix", "/etc/postfix" ]
 
-# SMTP port
-EXPOSE 25
+COPY docker-entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Start postfix in foreground mode
+CMD ["postfix", "start-fg"]
