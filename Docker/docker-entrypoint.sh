@@ -57,6 +57,8 @@ postconf -e "smtp_sasl_auth_enable = yes"
 postconf -e "smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd"
 postconf -e "smtp_sasl_security_options=noanonymous"
 postconf -e "smtp_use_tls = yes"
+postconf -e "smtp_tls_wrappermode = yes"
+postconf -e "smtp_tls_security_level = encrypt"
 
 # Use 587 (submission)
 sed -i -r -e 's/^#submission/submission/' /etc/postfix/master.cf
